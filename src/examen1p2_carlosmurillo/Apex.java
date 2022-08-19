@@ -6,6 +6,7 @@
 package examen1p2_carlosmurillo;
 
 import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -20,6 +21,8 @@ public class Apex extends javax.swing.JFrame {
     DefaultComboBoxModel modelo;
     DefaultComboBoxModel modelopersonaje;
     ArrayList lista_armas = new ArrayList();
+    ArrayList lista_personajes = new ArrayList();
+    ArrayList lista_tipos = new ArrayList();
     public Apex() {
         initComponents();
         
@@ -43,6 +46,13 @@ public class Apex extends javax.swing.JFrame {
         modelopersonaje.addElement( new Fortaleza("Gibby", 125, 75, new Arma("Carabina", 15, 90)));
 
         Personajes.setModel(modelopersonaje);
+        
+        lista_personajes.add(new Medico("LifeLine", 100, 50, new Arma("FlatLine", 10, 80)));
+        lista_personajes.add(new Rastreador("Vantage", 100, 50, new Arma("PeaceFinder", 30, 40)));
+        lista_personajes.add(new Fortaleza("Gibby", 125, 75, new Arma("Carabina", 15, 90)));
+        lista_tipos.add("Medico");
+        lista_tipos.add("Rastreador");
+        lista_tipos.add("Fortaleza");
         
     }
 
@@ -126,6 +136,11 @@ public class Apex extends javax.swing.JFrame {
         P_crear.addTab("Seleccionar", jPanel1);
 
         comenzar.setText("Comenzar");
+        comenzar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                comenzarMouseClicked(evt);
+            }
+        });
 
         partida.setColumns(20);
         partida.setRows(5);
@@ -365,10 +380,16 @@ public class Apex extends javax.swing.JFrame {
         Arma arma = (Arma) lista_armas.get(num);
         if(tipo.equals("Fortaleza")){
             modelopersonaje.addElement( new Fortaleza(nombre, vida, escudo, arma));
+            lista_personajes.add(new Fortaleza(nombre, vida, escudo, arma));
+            lista_tipos.add("Fortaleza");
         }else if(tipo.equals("Medico")){
             modelopersonaje.addElement( new Medico(nombre, vida, escudo, arma));
+            lista_personajes.add(new Medico(nombre, vida, escudo, arma));
+            lista_tipos.add("Medico");
         }else{
             modelopersonaje.addElement( new Rastreador(nombre, vida, escudo, arma));
+            lista_personajes.add(new Rastreador(nombre, vida, escudo, arma));
+            lista_tipos.add("Rastreador");
         }
         j_nombre.setText("");
         j_vida.setText("");
@@ -379,6 +400,45 @@ public class Apex extends javax.swing.JFrame {
     private void c_personajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_personajeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_c_personajeActionPerformed
+
+    private void comenzarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comenzarMouseClicked
+        ArrayList lista_usuarios = new ArrayList();
+        String nombre = "";
+        String contra = "";
+        for (int i = 0; i < 60; i++) {
+            if(i != 59){
+                Random numero = new Random();
+                int id = numero.nextInt(1000);
+                for (int j = 0; j < 10; j++) {
+                    String abec ="abcdefghijklmnopqrstuvwxyz";
+                    int num1 = abec.length();
+                    int num2 = numero.nextInt(num1);
+                    int num3 = numero.nextInt(num1);
+                    char letra1 = abec.charAt(num2);
+                    char letra2 = abec.charAt(num3);
+                    nombre += letra1;
+                    contra += letra2;
+                }
+                int num4 = lista_personajes.size();
+                int num5 = numero.nextInt(num4);
+                if(lista_tipos.get(num5).equals("Fortaleza")){
+                    Fortaleza personaje = (Fortaleza) lista_personajes.get(num5);
+                    lista_usuarios.add(new Usuario(nombre, id, contra, personaje));
+                }else if(lista_tipos.get(num5).equals("Medico")){
+                    Medico personaje = (Medico) lista_personajes.get(num5);
+                    lista_usuarios.add(new Usuario(nombre, id, contra, personaje));
+                }else{
+                    Rastreador personaje = (Rastreador) lista_personajes.get(num5);
+                    lista_usuarios.add(new Usuario(nombre, id, contra, personaje));
+                }
+                
+                
+                
+            }else{
+                
+            }
+        }
+    }//GEN-LAST:event_comenzarMouseClicked
 
     /**
      * @param args the command line arguments
