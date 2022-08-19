@@ -88,13 +88,13 @@ public class Usuario {
     @Override
     public String toString() {
         String cadena = "El personaje: ["+id+"] "+nombre+" ha ingresado a la partida";
-        if(tipo == 1){
+        /*if(tipo == 1){
             cadena += personajeF.toString();
         }else if(tipo == 2){
             cadena += personajeM.toString();
         }else{
             cadena += personajeR.toString();
-        }
+        }*/
         return cadena;
     }
     

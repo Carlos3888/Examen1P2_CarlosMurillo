@@ -476,7 +476,8 @@ public class Apex extends javax.swing.JFrame {
 
     private void atacarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atacarMouseClicked
         int num6 = Integer.parseInt(t_atacar.getText());
-        
+        boolean veri = buscador(num6, lista_id, 0, 999, 0, 59, false, 60);
+        System.out.println("[[[[[["+veri+"]]]]]]");
         
         t_atacar.setText("");
         
@@ -492,6 +493,42 @@ public class Apex extends javax.swing.JFrame {
                 }
             }
             
+        }
+        return temporal;
+    }
+    public boolean buscador(int num, ArrayList<Integer> lista, int ini, int fin, int ini2, int fin2, boolean desi, int cont){
+        boolean temporal = false;
+        if(ini == fin || desi == true || cont == 0){
+            
+        }else{
+            int num2 = fin-ini;
+            num2 = num2/2;
+            num2 = num2+ini;
+            int num4 = fin2-ini2;
+            num4 = num4/2;
+            num4 = num4+ini2;
+            int num3 = lista.get(num4);
+            if (num == num3){
+                System.out.println(num3+"num3");
+                System.out.println(num2+"num2");
+                if(num == num3){
+                    desi = true;
+                    System.out.println("aaaaaaaaaaaaaaaaaaaaaaaa");
+                }
+            }else if(num < num2){
+                fin = num2;
+                System.out.println(fin);
+                fin2 = num4;
+                buscador(num, lista, ini, fin, ini2, fin2, desi, cont-1);
+            }else{
+                ini = num2;
+                System.out.println(ini);
+                ini2 = num4;
+                buscador(num, lista, ini, fin, ini2, fin2, desi, cont-1);
+            }
+        }
+        if(desi == true){
+            temporal = true;
         }
         return temporal;
     }
