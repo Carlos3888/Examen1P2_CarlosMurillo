@@ -7,6 +7,7 @@ public class Usuario {
     private Fortaleza personajeF;
     private Medico personajeM;
     private Rastreador personajeR;
+    private int tipo;
 
     public Usuario() {
     }
@@ -16,6 +17,7 @@ public class Usuario {
         this.id = id;
         this.contra = contra;
         this.personajeF = personajeF;
+        tipo = 1;
     }
 
     public Usuario(String nombre, int id, String contra, Medico personajeM) {
@@ -23,6 +25,7 @@ public class Usuario {
         this.id = id;
         this.contra = contra;
         this.personajeM = personajeM;
+        tipo = 2;
     }
 
     public Usuario(String nombre, int id, String contra, Rastreador personajeR) {
@@ -30,6 +33,7 @@ public class Usuario {
         this.id = id;
         this.contra = contra;
         this.personajeR = personajeR;
+        tipo = 3;
     }
 
     public String getNombre() {
@@ -83,7 +87,15 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return nombre;
+        String cadena = "El personaje: ["+id+"] "+nombre+" ha ingresado a la partida";
+        if(tipo == 1){
+            cadena += personajeF.toString();
+        }else if(tipo == 2){
+            cadena += personajeM.toString();
+        }else{
+            cadena += personajeR.toString();
+        }
+        return cadena;
     }
     
     

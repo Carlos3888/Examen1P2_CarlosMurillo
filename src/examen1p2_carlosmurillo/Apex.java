@@ -18,11 +18,17 @@ public class Apex extends javax.swing.JFrame {
     /**
      * Creates new form Apex
      */
+    inicio ini = new inicio();
+    
+    String nombre_p = "";
+    String contra_p = "";
+    
     DefaultComboBoxModel modelo;
     DefaultComboBoxModel modelopersonaje;
     ArrayList lista_armas = new ArrayList();
     ArrayList lista_personajes = new ArrayList();
     ArrayList lista_tipos = new ArrayList();
+    ArrayList<Integer> lista_id = new ArrayList();
     public Apex() {
         initComponents();
         
@@ -149,6 +155,11 @@ public class Apex extends javax.swing.JFrame {
         restantes.setText("Restantes: ");
 
         atacar.setText("Atacar");
+        atacar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                atacarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -403,12 +414,15 @@ public class Apex extends javax.swing.JFrame {
 
     private void comenzarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comenzarMouseClicked
         ArrayList lista_usuarios = new ArrayList();
-        String nombre = "";
-        String contra = "";
+        Random numero = new Random();
         for (int i = 0; i < 60; i++) {
             if(i != 59){
-                Random numero = new Random();
+                
                 int id = numero.nextInt(1000);
+                lista_id.add(id);
+                
+                String nombre = "";
+                String contra = "";
                 for (int j = 0; j < 10; j++) {
                     String abec ="abcdefghijklmnopqrstuvwxyz";
                     int num1 = abec.length();
@@ -431,15 +445,56 @@ public class Apex extends javax.swing.JFrame {
                     Rastreador personaje = (Rastreador) lista_personajes.get(num5);
                     lista_usuarios.add(new Usuario(nombre, id, contra, personaje));
                 }
-                
-                
-                
             }else{
-                
+                int id = numero.nextInt(1000);
+                int num = Personajes.getSelectedIndex();
+                if(lista_tipos.get(num).equals("Fortaleza")){
+                    Fortaleza personaje = (Fortaleza) lista_personajes.get(num);
+                    lista_usuarios.add(new Usuario(nombre_p, id, contra_p, personaje));
+                }else if(lista_tipos.get(num).equals("Medico")){
+                    Medico personaje = (Medico) lista_personajes.get(num);
+                    lista_usuarios.add(new Usuario(nombre_p, id, contra_p, personaje));
+                }else{
+                    Rastreador personaje = (Rastreador) lista_personajes.get(num);
+                    lista_usuarios.add(new Usuario(nombre_p, id, contra_p, personaje));
+                }
             }
+            
         }
+        lista_id = ordenar(lista_id);
+        System.out.println(lista_id);
+        
+        String cadena = partida.getText();
+        String cadena2 = "";
+        for (int i = 0; i < lista_usuarios.size(); i++) {
+            String cadena3 = lista_usuarios.get(i).toString();
+            System.out.println(cadena3);
+            cadena2 += cadena3+"\n";
+        }
+        partida.setText(cadena2+"\n");
     }//GEN-LAST:event_comenzarMouseClicked
 
+    private void atacarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atacarMouseClicked
+        int num6 = Integer.parseInt(t_atacar.getText());
+        
+        
+        t_atacar.setText("");
+        
+    }//GEN-LAST:event_atacarMouseClicked
+
+    public ArrayList<Integer> ordenar(ArrayList<Integer> lista){
+        ArrayList<Integer> temporal = new ArrayList();
+        for (int i = 0; i < 1000; i++) {
+            for (int j = 0; j < lista.size(); j++) {
+                int num = lista.get(j);
+                if(num == i){
+                    temporal.add(num);
+                }
+            }
+            
+        }
+        return temporal;
+    }
     /**
      * @param args the command line arguments
      */

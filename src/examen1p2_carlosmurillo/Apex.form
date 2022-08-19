@@ -199,6 +199,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Atacar"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="atacarMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

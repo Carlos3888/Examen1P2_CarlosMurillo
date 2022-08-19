@@ -14,6 +14,7 @@ public class inicio extends javax.swing.JFrame {
     /**
      * Creates new form inicio
      */
+
     public inicio() {
         initComponents();
     }
@@ -99,13 +100,14 @@ public class inicio extends javax.swing.JFrame {
         if(usu.equals("") && con.equals("")){
             
         }else{
-            this.setVisible(false);
             Apex a = new Apex();
             a.setVisible(true);
+            a.nombre_p = usu;
+            a.contra_p = con;
         }
-        
     }//GEN-LAST:event_iniciarMouseClicked
 
+    
     /**
      * @param args the command line arguments
      */
@@ -145,8 +147,8 @@ public class inicio extends javax.swing.JFrame {
     private javax.swing.JLabel contra;
     private javax.swing.JButton iniciar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField t_contra;
-    private javax.swing.JTextField t_usuario;
+    public static javax.swing.JTextField t_contra;
+    public static javax.swing.JTextField t_usuario;
     private javax.swing.JLabel usuario;
     // End of variables declaration//GEN-END:variables
 }
